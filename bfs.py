@@ -21,8 +21,10 @@ class BFS:
 					mark[i] = 1
 					par[i] = x
 					this.q.append(i)
+					if(i == end):
+						break;
 					
-		if(par[end] == -1):
+		if not mark[end]
 			return None
 		path = list()
 		while(end != -1):
