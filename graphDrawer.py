@@ -1,11 +1,10 @@
 from graph import Graph
-import math
-import time
-from shutil import copyfile
+from time import sleep
 import os
+import math
 
 
-class GraphDraw:
+class GraphDrawer:
 	def __init__(this):
 		this.fout = open("Draw.ps", "w")
 		this.l = list()
@@ -25,14 +24,16 @@ class GraphDraw:
 		this.fout.write(str(this.l[e[1]].real) + " " + str(this.l[e[1]].imag) + " lineto\n")
 		this.fout.write("stroke\n")
 
-	def mark(this, x, color=(0,0,0)):
+	def mark(this, x, wait = True, color=(0,0,0)):
 		this.fout = open("Draw.ps", "a")
 		this.fout.write(str(color[0]) + " " + str(color[1]) + " " + str(color[2]) + " setrgbcolor\n")
 		p = this.l[x]
 		this.fout.write(str(p.real) + " " + str(p.imag) + " " + str(this.vr) + " 0 360 arc fill\n")
 		this.fout.close()
+		if(wait):
+			sleep(2)
 
-	def markEdge(this, x, color=(0,0,0)):
+	def markEdge(this, x, wait=1, color=(0,0,0)):
 		this.fout = open("Draw.ps", "a")
 		this.fout.write(str(color[0]) + " " + str(color[1]) + " " + str(color[2]) + " setrgbcolor\n")
 		e = this.G.e[x]
@@ -40,6 +41,8 @@ class GraphDraw:
 		this.fout.write(str(this.l[e[1]].real) + " " + str(this.l[e[1]].imag) + " lineto\n")
 		this.fout.write("stroke\n")
 		this.fout.close()
+		if(wait):
+			sleep(2)
 
 
 	def init(this, G):
@@ -56,5 +59,6 @@ class GraphDraw:
 		for i in G.e:
 			this.edge(i)
 		this.fout.close()
+		os.system("evince Draw.ps")
 
 

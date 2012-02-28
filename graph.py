@@ -18,9 +18,13 @@ class Graph:
 			this.a[t[0]].append(t[1])
 			this.a[t[1]].append(t[0])
 			this.e.append((t[0], t[1]))
-	def output(this):
-		print this.a
-		print this.e
+	
+	def getIdx(this, x, y):
+		for i in range(len(this.e)):
+			if((this.e[i][0] == x and this.e[i][1] == y) or (this.e[i][0] == y and this.e[i][1] == x)):
+				return i
+		return -1
+
 class WGraph:
 	def __init__(this, filename="random", n=0, m=0):
 		filename += ".g"
