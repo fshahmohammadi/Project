@@ -7,7 +7,8 @@ import os
 
 class GraphDraw:
 	def __init__(this):
-		this.fout = open("_Draw.ps", "w")
+		#this.fout = open("_Draw.ps", "w")
+		this.fout = open("Draw.ps", "w")
 		this.l = list()
 		this.vr = 10
 
@@ -24,10 +25,12 @@ class GraphDraw:
 		this.fout.write("stroke\n")
 
 	def mark(this, x, color=(0,0,0)):
+		this.fout = open("Draw.ps", "a")
 		this.fout.write(str(color[0]) + " " + str(color[1]) + " " + str(color[2]) + " setrgbcolor\n")
 		p = this.l[x]
 		this.fout.write(str(p.real) + " " + str(p.imag) + " " + str(this.vr) + " 0 360 arc fill\n")
-		this.Draw()
+		this.fout.close()
+#		this.Draw()
 
 	def Draw(slef):
 		copyfile("_Draw.ps", "Draw.ps")
@@ -43,12 +46,18 @@ class GraphDraw:
 			this.vertex(i)
 		for i in G.e:
 			this.edge(i)
-		this.Draw()
+#		this.Draw()
 
 
 tmp = Graph(n=5, m = 10)
 G = GraphDraw()
 G.init(tmp)
 G.mark(0)
-time.sleep(5)
-G.mark(1)
+time.sleep(2)
+G.mark(1, (0.5, 0.5, 0.5))
+time.sleep(2)
+G.mark(2, (0, 1, 0))
+time.sleep(2)
+G.mark(3, (1, 0, 0))
+time.sleep(3)
+G.mark(4, (1, 1, 0))
