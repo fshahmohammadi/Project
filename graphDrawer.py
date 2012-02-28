@@ -7,10 +7,11 @@ import os
 
 class GraphDraw:
 	def __init__(this):
-		#this.fout = open("_Draw.ps", "w")
 		this.fout = open("Draw.ps", "w")
 		this.l = list()
 		this.vr = 10
+		this.fout.close()
+		this.G = Graph()
 
 	def cis(this, ang):
 		tmp = 0 + 1j
@@ -30,12 +31,20 @@ class GraphDraw:
 		p = this.l[x]
 		this.fout.write(str(p.real) + " " + str(p.imag) + " " + str(this.vr) + " 0 360 arc fill\n")
 		this.fout.close()
-#		this.Draw()
 
-	def Draw(slef):
-		copyfile("_Draw.ps", "Draw.ps")
+	def markEdge(this, x, color=(0,0,0)):
+		this.fout = open("Draw.ps", "a")
+		this.fout.write(str(color[0]) + " " + str(color[1]) + " " + str(color[2]) + " setrgbcolor\n")
+		e = this.G.e[x]
+		this.fout.write(str(this.l[e[0]].real) + " " + str(this.l[e[0]].imag) + " moveto\n")
+		this.fout.write(str(this.l[e[1]].real) + " " + str(this.l[e[1]].imag) + " lineto\n")
+		this.fout.write("stroke\n")
+		this.fout.close()
+
 
 	def init(this, G):
+		this.G = G
+		this.fout = open("Draw.ps", "a")
 		this.fout.write("newpath\n")
 		ang = 2*math.pi / G.n
 		center = 300 + 400j
@@ -46,18 +55,6 @@ class GraphDraw:
 			this.vertex(i)
 		for i in G.e:
 			this.edge(i)
-#		this.Draw()
+		this.fout.close()
 
 
-tmp = Graph(n=5, m = 10)
-G = GraphDraw()
-G.init(tmp)
-G.mark(0)
-time.sleep(2)
-G.mark(1, (0.5, 0.5, 0.5))
-time.sleep(2)
-G.mark(2, (0, 1, 0))
-time.sleep(2)
-G.mark(3, (1, 0, 0))
-time.sleep(3)
-G.mark(4, (1, 1, 0))
