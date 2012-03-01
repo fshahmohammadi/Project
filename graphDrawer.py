@@ -59,6 +59,6 @@ class GraphDrawer:
 		for i in G.e:
 			this.edge(i)
 		this.fout.close()
-		os.system("evince Draw.ps")
+		os.system("evince Draw.ps &")
 
 
