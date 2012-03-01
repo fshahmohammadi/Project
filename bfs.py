@@ -45,5 +45,5 @@ class BFS:
 
 
 #x = BFS("random", n = 5, m = 8)
-x = BFS("path")
+x = BFS("tests/bfs")
 x.run()

@@ -33,15 +33,13 @@ class CutVertex:
 			else:
 				best = min(best, this.h[i])
 		if(x == root and counter > 1):
-			print "!" 
 			this.draw.mark(x, 1, (1, 0, 0))
 		elif(x != root and flag):
-			print "@"
 			this.draw.mark(x, 1, (1, 0, 0))
 		else:	
 			this.draw.mark(x)
 		return best
 
 #x = CutVertex("random", n = 5, m = 8)
-x = CutVertex("path")
+x = CutVertex("tests/cut_vertex")
 x.run()
